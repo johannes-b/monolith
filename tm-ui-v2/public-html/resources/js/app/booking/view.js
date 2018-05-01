@@ -205,11 +205,12 @@ define([
                 });
                 bookingRequest.email = $scope.bookingRequest.email;
                 bookingRequest.performance = BookingService.getPerformance().id;
+                console.log(bookingRequest);
                 BookingResource.save(bookingRequest, function(data) {
                     BookingService.reset();
                     $location.path('/bookings/' + data.id);
                 }, function() {
-                    console.log("Failure");
+                    console.log("Failure > could not call service");
                 });
             };
         }])

@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker push ceposta/tm-ui:backend
+docker push jbraeuer/tm-ui:backend
