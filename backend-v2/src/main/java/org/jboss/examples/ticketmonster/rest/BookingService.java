@@ -7,8 +7,8 @@ import org.jboss.examples.ticketmonster.service.AllocatedSeats;
 import org.jboss.examples.ticketmonster.service.SeatAllocationService;
 import org.jboss.examples.ticketmonster.util.qualifier.Cancelled;
 import org.jboss.examples.ticketmonster.util.qualifier.Created;
-import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.json.JSONObject;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -54,7 +54,7 @@ public class BookingService extends BaseEntityService<Booking> {
     @Inject @Created
     private Event<Booking> newBookingEvent;
 
-    private String ordersServiceUri = "http://localhost:9090/rest/bookings";
+    private String ordersServiceUri = "https://orders-service.apps.pcfeu.dev.dynatracelabs.com/rest/bookings";
     
     public BookingService() {
         super(Booking.class);
@@ -67,6 +67,58 @@ public class BookingService extends BaseEntityService<Booking> {
     		deleteBooking(booking.getId());
     	}
         return Response.noContent().build();
+    }
+
+     /**
+     * <p>
+     *     A method for retrieving individual entity instances.
+     * </p>
+     * @param id entity id
+     * @return
+     */
+    @Override
+    @GET
+    @Path("/{id:[0-9][0-9]*}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Booking getSingleInstance(@PathParam("id") Long id) {
+        Booking booking = null;
+
+        if (ff.check("orders-internal")) {
+            System.out.println("Retrieve booking from legacy");
+            booking =  super.getSingleInstance(id);
+        }
+
+        if (ff.check("orders-service")) {
+            System.out.println("Retrieve booking from orders-service");
+            booking = getBookingOrdersService(id);
+        }
+        return booking;
+    }
+
+    private Booking getBookingOrdersService(Long id) {
+
+        try {
+            System.out.println("Calling service (new): " + ordersServiceUri);
+            Response response = buildClient()
+                    .target(this.ordersServiceUri +"/"+ id)
+                    .request()
+                    .get();
+            
+            System.out.println(">>> RESPONSE Status:" + response.getStatus());
+            String entity = response.readEntity(String.class);
+            System.out.println(">>> "+entity);
+
+            Booking booking = new Booking();
+            
+            JSONObject jsonObj = new JSONObject(entity);
+            booking.setId(jsonObj.getLong("id"));
+            booking.setContactEmail(jsonObj.getString("contactEmail"));
+            return booking;
+
+        } catch (Exception e) {
+            System.out.println("Caught an exception here: "+ e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -120,20 +172,20 @@ public class BookingService extends BaseEntityService<Booking> {
         Response response = null;
 
         if (ff.check("orders-internal")) {
-            System.out.println("Creating internal booking");
             response = createBookingInternal(bookingRequest);
+            System.out.println("Created internal booking");
         }
 
         if (ff.check("orders-service")) {
             if (ff.check("orders-internal")) {
                 createSyntheticBookingOrdersService(bookingRequest);
-
             }
             else {
                 response = createBookingOrdersService(bookingRequest);
+                System.out.println("Created booking by orders-service");
             }
         }
-
+        System.out.println("Response Status: " + response.getStatusInfo());
         return response;
     }
 
@@ -152,7 +204,8 @@ public class BookingService extends BaseEntityService<Booking> {
             System.out.println("Calling service: " + ordersServiceUri);
             Response response = buildClient()
                     .target(ordersServiceUri)
-                    .request().post(Entity.entity(ordersRequest, MediaType.APPLICATION_JSON_TYPE));
+                    .request()
+                    .post(Entity.entity(ordersRequest, MediaType.APPLICATION_JSON_TYPE));
             String sytheticResponse = response.readEntity(String.class);
             System.out.println("Response from SYNTHETIC TX: " + sytheticResponse);
 
@@ -171,14 +224,13 @@ public class BookingService extends BaseEntityService<Booking> {
             proxyPort = null;
         }
 
+        System.out.println("> Using proxy: " + proxyHost + ":" + proxyPort);
         if (proxyHost != null && !proxyHost.isEmpty() && proxyPort != null) {
-            System.out.println("Using proxy: " + proxyHost + ":" + proxyPort);
             return new ResteasyClientBuilder()
                     .defaultProxy(proxyHost, proxyPort).build();
-        }else {
+        } else {
             return ClientBuilder.newClient();
         }
-
     }
 
     /**
@@ -187,8 +239,32 @@ public class BookingService extends BaseEntityService<Booking> {
      * @return
      */
     private Response createBookingOrdersService(BookingRequest bookingRequest) {
-        System.out.println("Real World orders service");
-        return null;
+
+        OrdersRequestDTO ordersRequest = new OrdersRequestDTO(bookingRequest, false);
+
+        try {
+            System.out.println("Calling service (new): " + ordersServiceUri);
+            Response response = buildClient()
+                    .target(this.ordersServiceUri)
+                    .request()
+                    .post(Entity.entity(ordersRequest, MediaType.APPLICATION_JSON_TYPE));
+            
+            System.out.println("RESPONSE Status:" + response.getStatus());
+
+            Booking booking = new Booking();
+            booking.setContactEmail(bookingRequest.getEmail());
+            Performance performance = getEntityManager().find(Performance.class, bookingRequest.getPerformance());
+            booking.setPerformance(performance);
+            booking.setCancellationCode("abc");
+
+            JSONObject jsonObj = new JSONObject(response.readEntity(String.class));
+            booking.setId(jsonObj.getLong("id"));
+            return Response.ok().entity(booking).type(MediaType.APPLICATION_JSON_TYPE).build();
+
+        } catch (Exception e) {
+            System.out.println("Caught an exception here: "+ e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     /**

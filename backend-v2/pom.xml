@@ -104,7 +104,7 @@
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <buildhelper.plugin.version>1.7</buildhelper.plugin.version>
         <fabric8.maven.plugin.version>3.5.25</fabric8.maven.plugin.version>
-        <docker.image.name>ceposta/%a:%l</docker.image.name>
+        <docker.image.name>jbraeuer/%a:%l</docker.image.name>
         <ffj4.version>1.6.5</ffj4.version>
         <version.org.jboss.arquillian>1.1.12.Final</version.org.jboss.arquillian>
         <version.org.wildfly.arquillian.container>2.0.0.Final</version.org.wildfly.arquillian.container>
@@ -316,6 +316,13 @@
             <version>3.5.0</version>
             <scope>test</scope>
         </dependency>-->
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -527,7 +534,9 @@
                                         <build>
                                             <from>jboss/wildfly:10.1.0.Final</from>
                                             <ports>
+                                                <port>443</port>
                                                 <port>8080</port>
+                                                <port>8443</port>
                                             </ports>
                                             <assembly>
                                                 <inline>
