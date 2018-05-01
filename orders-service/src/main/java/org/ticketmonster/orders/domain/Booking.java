@@ -2,7 +2,6 @@ package org.ticketmonster.orders.domain;
 
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.GenerationType.TABLE;
 
 import java.io.Serializable;
@@ -19,7 +18,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.teiid.spring.annotations.InsertQuery;
 import org.teiid.spring.annotations.SelectQuery;
-import org.teiid.spring.annotations.UpdateQuery;
 
 /**
  * <p>

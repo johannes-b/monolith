@@ -4,4 +4,4 @@ spec:
       containers:
       - env:
         - name: SPRING_PROFILES_ACTIVE
-          value: "kube"
+          value: "mysql"

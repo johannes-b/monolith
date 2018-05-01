@@ -34,6 +34,7 @@ import javax.validation.constraints.NotNull;
  * @author Marius Bogoevici
  * @author Pete Muir
  */
+@SuppressWarnings("serial")
 @SelectQuery("SELECT sa.id, sa.allocated, sa.occupiedCount AS occupied_count, sa.performance_id, e.name as performance_name, sa.version, sa.section_id " +
         "FROM legacyDS.SectionAllocation sa " +
         "JOIN legacyDS.Performance p ON sa.performance_id=p.id " +
