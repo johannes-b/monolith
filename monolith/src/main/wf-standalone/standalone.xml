@@ -144,11 +144,11 @@
           </security>
         </datasource>
         <datasource jndi-name="java:jboss/datasources/MySQLDS" pool-name="MySQLDS">
-          <connection-url>jdbc:mysql://mysql-backend:3306/ticketmonster</connection-url>
+          <connection-url>jdbc:mysql://10.0.16.54:3306/cf_b67dba92_e214_4bdb_96c4_aebd5f986425</connection-url>
           <driver>mysql</driver>
           <security>
-            <user-name>root</user-name>
-            <password>admin</password>
+            <user-name>md8ZiMyOvdae9G2s</user-name>
+            <password>noCfHlaDbyaxcRXG</password>
           </security>
         </datasource>
         <drivers>
