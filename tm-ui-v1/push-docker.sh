@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker push ceposta/tm-ui:monolith
+docker push jbraeuer/tm-ui:monolith
