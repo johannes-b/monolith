@@ -7,17 +7,25 @@
   <version>1.0.0-SNAPSHOT</version>
   <modelVersion>4.0.0</modelVersion>
 
+  <repositories>
+    <repository>
+      <id>mvnrepository.com</id>
+      <name>MavenRepository</name>
+      <url>https://mvnrepository.com/artifact</url>
+    </repository>
+  </repositories>
+
   <properties>
     <spring-boot.version>1.5.6.RELEASE</spring-boot.version>
     <docker-maven-plugin.version>0.20.1</docker-maven-plugin.version>
     <mysql-server.version>5.7</mysql-server.version>
     <mysql.user>ticket</mysql.user>
     <mysql.password>monster</mysql.password>
-    <mysql.port>3306</mysql.port>
+    <mysql.port>3308</mysql.port>
     <mysql.init.timeout>60000</mysql.init.timeout>
     <skipITs>true</skipITs>
     <fabric8.maven.plugin.version>3.5.25</fabric8.maven.plugin.version>
-    <docker.image.name>ceposta/%a:%l</docker.image.name>
+    <docker.image.name>jbraeuer/%a:%l</docker.image.name>
   </properties>
 
   <dependencyManagement>
@@ -48,9 +56,9 @@
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.teiid.spring</groupId>
+      <groupId>org.teiid</groupId>
       <artifactId>teiid-spring-boot-starter</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0</version>
     </dependency>
 
 
@@ -121,6 +129,7 @@
   </build>
 
   <profiles>
+    
     <profile>
       <id>default</id>
       <activation>
@@ -133,11 +142,12 @@
         </dependency>
       </dependencies>
     </profile>
+
     <profile>
       <id>mysql</id>
       <properties>
         <spring.profiles.active>mysql</spring.profiles.active>
-        <skipITs>false</skipITs>
+        <skipITs>true</skipITs>
       </properties>
       <dependencies>
         <dependency>
@@ -146,6 +156,7 @@
           <version>5.1.44</version>
         </dependency>
       </dependencies>
+      
       <build>
         <plugins>
           <plugin>
@@ -164,6 +175,7 @@
               </profiles>
             </configuration>
           </plugin>
+          
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
@@ -227,6 +239,7 @@
               </execution>
             </executions>
           </plugin>
+
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
@@ -259,6 +272,7 @@
         </plugins>
       </build>
     </profile>
+
     <profile>
       <id>skip-integration-tests</id>
       <activation>
@@ -272,11 +286,13 @@
         <docker.skip>true</docker.skip>
       </properties>
     </profile>
+
     <profile>
       <id>kubernetes</id>
       <properties>
         <fabric8.generator.name>${docker.image.name}</fabric8.generator.name>
       </properties>
+
       <build>
         <plugins>
           <plugin>
@@ -294,7 +310,7 @@
         </plugins>
       </build>
     </profile>
+    
   </profiles>
-
 
 </project>

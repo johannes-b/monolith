@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker push ceposta/orders-service:latest
+docker push jbraeuer/orders-service:latest

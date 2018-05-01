@@ -1,9 +1,6 @@
-#### DOCKER image
-# build docker image
-see build-docker.sh
-
-# push Docker image to Docker Hub
-$ docker push jbraeuer/backend:v1
-
-# push Docker image from Docker Hub to CF
-$ cf push backend-v1 --docker-image jbraeuer/backend:v1
+cd C:\dynatrace\repos\johannes-b\monolith\backend-v1
+mvn clean install -P mysql fabric8:build -D docker.image.name=jbraeuer/backend:v1
+cd .\target\docker\jbraeuer\backend\v1\build\
+docker build -t jbraeuer/backend:v1 .
+docker push jbraeuer/backend:v1
+cf push backend-v1 -o jbraeuer/backend:v1

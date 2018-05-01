@@ -11,7 +11,7 @@ $ cf restart ticketMonster
 
 #### DOCKER image
 # build docker image
-see build-docker.sh
+mvn clean install -Pmysql fabric8:build -Ddocker.image.name=jbraeuer/ticket-monster-mysql:latest
 
 # push Docker image to Docker Hub
 $ docker push jbraeuer/ticket-monster-mysql:latest
