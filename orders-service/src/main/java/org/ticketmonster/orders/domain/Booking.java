@@ -61,20 +61,13 @@ public class Booking implements Serializable {
     private Long id;
 
     /**
-     * <p>
      * The set of tickets contained within the booking. The <code>@OneToMany<code> JPA mapping establishes this relationship.
-     * </p>
      * 
-     * <p>
      * The set of tickets is eagerly loaded because
      * booking is removed, then all associated tickets will be removed.
-     * </p>
      * 
-     * <p>
      * This relationship is uni-directional, so we need to inform JPA to create a foreign key mapping. The foreign key mapping
      * is not visible in the {@link Ticket} entity despite being present in the database.
-     * </p>
-     * 
      */
     @OneToMany(fetch = EAGER, cascade = ALL)
     @JoinColumn(name = "booking_id")
@@ -91,48 +84,33 @@ public class Booking implements Serializable {
     private PerformanceId performanceId;
 
     /**
-     * <p>
      * A cancellation code, provided to the ticket booker to allow them to cancel a booking.
-     * </p>
      * 
-     * <p>
      * The
      * <code>@NotEmpty<code> Bean Validation constraint means that the booking must contain a cancellation code of at least 1 character.
-     * </p>
      */
     @NotEmpty
     @Column(name = "cancellation_code")
     private String cancellationCode;
 
     /**
-     * <p>
      * The date the booking was made.
-     * </p>
-     * <p>
-     * <p>
+     * 
      * The <code>@NotNull</code> Bean Validation constraint means that the booking date must be set. By default, it is set to
      * the date the object was created.
-     * </p>
      */
     @NotNull
     @Column(name = "created_on")
     private Timestamp createdOn = new Timestamp(new Date().getTime());
 
     /**
-     * <p>
      * A contact for the booking, in case the event organizers need to contact the booker. In a later iteration of this demo
      * application, this will be replaced by a full user management system, but this wasn't part of the initial requirements.
-     * </p>
      * 
-     * <p>
      * Two constraints are applied using Bean Validation
-     * </p>
      * 
-     * <ol>
      * <li><code>@NotEmpty</code> &mdash; the string must not be null, and must have at least one character.</li>
      * <li><code>@Email</code> &mdash; the string must be a valid email address</li>
-     * </ol>
-     * 
      */
 //    @NotEmpty
     @Email(message = "Not a valid email format")

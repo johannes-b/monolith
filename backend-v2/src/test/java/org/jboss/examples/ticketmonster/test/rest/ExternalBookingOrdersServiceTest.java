@@ -20,13 +20,9 @@ import io.specto.hoverfly.junit.rule.HoverflyRule;
 import org.ff4j.FF4j;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.examples.ticketmonster.model.Performance;
-import org.jboss.examples.ticketmonster.model.Show;
-import org.jboss.examples.ticketmonster.model.TicketPrice;
 import org.jboss.examples.ticketmonster.rest.BookingRequest;
 import org.jboss.examples.ticketmonster.rest.BookingService;
 import org.jboss.examples.ticketmonster.rest.ShowService;
-import org.jboss.examples.ticketmonster.rest.TicketRequest;
 import org.jboss.examples.ticketmonster.test.utils.BookingUtils;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
@@ -37,8 +33,6 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import static io.specto.hoverfly.junit.core.SimulationSource.classpath;
 import static io.specto.hoverfly.junit.dsl.HoverflyDsl.service;
@@ -77,8 +71,6 @@ public class ExternalBookingOrdersServiceTest {
 
     @Inject
     FF4j ff;
-
-
 
     @Test
     public void testExternalOrdersServiceSyntheticTransaction() {
