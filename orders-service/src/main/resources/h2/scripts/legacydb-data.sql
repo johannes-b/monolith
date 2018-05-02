@@ -147,7 +147,7 @@ insert into Event ( name, description, mediaitem_id, category_id) values ( 'Extr
 -- Event 8
 insert into Event ( name, description, mediaitem_id, category_id) values ( 'Arrhythmia: Graffiti', 'Hear the sounds that have the critics abuzz. Be one of the first American audiences to experience Portuguese phenomenon Arrhythmia play all the tracks from their recently-released ''Graffiti'' -- the show includes a cameo with world-famous activist and graffiti artist Bansky.', 8, 1);
 -- Event 9
-insert into Event ( name, description, mediaitem_id, category_id) values ( 'Battle of the Brass Bands', 'That right -- theyve blown into town! Join the annual tri-state Battle of the Brass Bands and watch them gild the winning bands Most Valuable Blower (MVB) -- dont worry (and dont inhale!); its only spray paint!  Vote for your best band and revel in a day of high-energy rhythms!',  9, 1);
+insert into Event ( name, description, mediaitem_id, category_id) values ( 'Battle of the Brass Bands', 'That is right, they have blown into town! Join the annual tristate Battle of the Brass Bands and watch them gild the winning bands Most Valuable Blower (MVB) -- dont worry (and dont inhale!) its only spray paint!  Vote for your best band and revel in a day of high-energy rhythms!',  9, 1);
 -- Event 10
 insert into Event ( name, description, mediaitem_id, category_id) values ( 'Carnival Comes to Town', 'Sit center stage as Harlequin Ayes gives another groundbreaking theater performance in the critically acclaimed Carnival Comes to Town, a monologue re-enactment of one-woman''s despair at not being chosen to join the carnival she''s spent her entire life preparing for.', 10, 2);
 -- Event 11
