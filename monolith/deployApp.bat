@@ -18,3 +18,11 @@ $ docker push jbraeuer/ticket-monster-mysql:latest
 
 # push Docker image from Docker Hub to CF
 $ cf push ticket-Monster --docker-image jbraeuer/ticket-monster-mysql:latest
+
+
+#### Summary ####
+cd C:\dynatrace\repos\johannes-b\monolith\monolith
+mvn clean install -P mysql fabric8:build -D docker.image.name=jbraeuer/ticket-monster-mysql:latest
+cd .\target\docker\jbraeuer\ticket-monster-mysql\latest\build
+docker push jbraeuer/ticket-monster-mysql:latest
+cf push ticket-Monster --docker-image jbraeuer/ticket-monster-mysql:latest
