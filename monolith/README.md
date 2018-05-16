@@ -50,30 +50,22 @@ Deploy the `mysql` Cloud Foundry service:
 cf create-service p-mysql 100mb ticketMonster-mysql
 ```
 
-Build the latest version of the monolith:
+Build the latest version of the monolith as Docker container:
 
 ```
-mvn clean package -Pmysql,default
+mvn clean install -P mysql fabric8:build -D docker.image.name=jbraeuer/ticket-monster-mysql:latest
 ```
 
-Define the manifest of TicketMonster in manifest.yml
-
+Move to Docker file and push container image to Docker Hub:
 ```
----
-applications:
-- name: ticketMonster1
-  memory: 1G
-  instances: 1
-  path: target/ticket-monster.war
-  buildpack: https://github.com/cloudfoundry/java-buildpack.git
-  services:
-    - ticketMonster-mysql1
+cd .\target\docker\jbraeuer\ticket-monster-mysql\latest\build
+docker push jbraeuer/ticket-monster-mysql:latest
 ```
 
-Push the application
+Push the application to Cloud Foundry by using the container image on Docker Hub:
 
 ```
-cf push
+cf push ticket-Monster --docker-image jbraeuer/ticket-monster-mysql:latest
 ```
 
 Get binding information and set database connection in standalone.xml
@@ -93,7 +85,10 @@ cf env ticketMonster1
 </datasource>
 ```
 
+Rebuild TicketMonster, push to Docker Hub, and push to Cloud Foundry:
 ```
-mvn clean package -Pmysql,default
-cf push
+mvn clean install -P mysql fabric8:build -D docker.image.name=jbraeuer/ticket-monster-mysql:latest
+cd .\target\docker\jbraeuer\ticket-monster-mysql\latest\build
+docker push jbraeuer/ticket-monster-mysql:latest
+cf push ticket-Monster --docker-image jbraeuer/ticket-monster-mysql:latest
 ```
