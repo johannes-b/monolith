@@ -6,10 +6,8 @@ This is the monolith version of the TicketMonster app from the [tutorial on deve
 This project illustrates the following concepts:
 
 * App running in WildFly 10.x (EE 7)
-* Packaging as a Docker image using [fabric8-maven-plugin](https://maven.fabric8.io)
 * Connecting to a separate instance of `mysql` database
-* Arquillian integration tests (embedded/remote)
-* Deploying to Kubernetes with [fabric8-maven-plugin](https://maven.fabric8.io)
+* Deploying to Cloud Foundry
 
 
 ## Running TicketMonster
@@ -23,44 +21,12 @@ mvn clean package wildfly:run
 This builds the application with an embedded database and bootstraps an embedded application server and deploys the service available at [http://localhost:8080/ticket-monster](http://localhost:8080/ticket-monster). Give it a try to make sure everything comes up correctly.
 
 
-### Running with docker:
-
-If you're attached to a `docker` daemon:
-
-```
-docker run -it -p 8080:8080 ceposta/ticket-monster-monolith:latest
-```
-
-### Running on kubernetes
-
-If you're connected to a Kubernetes instance, you can do a complete docker build and run of the application with the fabric8 maven plugin like this:
-
-```
-mvn clean package -Pdefault,kubernetes fabric8:run
-```
-
 ## For developers: Building TicketMonster
 
 TicketMonster can be built from Maven, by running the following Maven command:
 
 ```
 mvn clean package
-```
-	
-### Building TicketMonster with integration tests
-	
-If you want to run the Arquillian tests as part of the build, you can enable one of the two available Arquillian profiles.
-
-For running the tests in an _already running_ application server instance, use the `arq-wildfly-remote` profile.
-
-```
-mvn clean package -Parq-wildfly-remote
-```
-
-If you want the test runner to _start_ an application server instance, use the `arq-wildfly-managed` profile. You must set up the `JBOSS_HOME` property to point to the server location, or update the `src/main/test/resources/arquillian.xml` file.
-
-```
-mvn clean package -Parq-wildfly-managed
 ```
 	
 ### Building TicketMonster with MySQL 
@@ -71,32 +37,63 @@ If you want to build the WAR with support for MySQL database, build with the fol
 mvn clean package -Pmysql,default
 ```
        
-Note, we explicitly enable the `mysql` profile and also the `default` profile. We keep the default profile around to skip integration tests. Leave it off to run them.    
+Note, we explicitly enable the `mysql` profile and also the `default` profile. We keep the default profile around to skip integration tests. Leave it off to run them.   
+
 	
-### Building TicketMonster with MySQL and Kubernetes
+### Building TicketMonster with MySQL on Cloud Foundry
 
-First you should deploy a `mysql` instance. Take a [look at a Kubernetes deployment for mysql from here](../deployment/kubernetes/core/monolith/).
+First you should deploy a `mysql` instance. 
 
-Deploy the `mysql` kubernetes service:
-
-```
-kubectl apply -f deployment/kubernetes/core/monolith/mysql-svc.yml
-```
-
-Next, deploy the `mysql` deployment:
+Deploy the `mysql` Cloud Foundry service:
 
 ```
-kubectl apply -f deployment/kubernetes/core/monolith/mysql-deployment.yml
+cf create-service p-mysql 100mb ticketMonster-mysql
 ```
 
-Lastly, deploy the latest version of the monolith:
+Build the latest version of the monolith:
 
 ```
-mvn clean package -Pdefault,kubernetes,mysql fabric8:deploy
+mvn clean package -Pmysql,default
 ```
 
-To undeploy:
+Define the manifest of TicketMonster in manifest.yml
 
 ```
-mvn -Pdefault,kubernetes,mysql fabric8:undeploy
+---
+applications:
+- name: ticketMonster1
+  memory: 1G
+  instances: 1
+  path: target/ticket-monster.war
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
+  services:
+    - ticketMonster-mysql1
+```
+
+Push the application
+
+```
+cf push
+```
+
+Get binding information and set database connection in standalone.xml
+
+```
+cf env ticketMonster1
+```
+
+```
+<datasource jndi-name="java:jboss/datasources/MySQLDS" pool-name="MySQLDS">
+    <connection-url>jdbc:mysql://10.0.16.54:3306/cf_b67dba92_e214_4bdb_96c4_aebd5f986425</connection-url>
+    <driver>mysql</driver>
+       <security>
+            <user-name>md8ZiMyOvdae9G2s</user-name>
+            <password>noCfHlaDbyaxcRXG</password>
+        </security>
+</datasource>
+```
+
+```
+mvn clean package -Pmysql,default
+cf push
 ```
