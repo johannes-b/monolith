@@ -6,30 +6,30 @@ This is the monolith version of the TicketMonster app from the [tutorial on deve
 This project illustrates the following concepts:
 
 * App running in WildFly 10.x (EE 7)
-* Connecting to a separate instance of `mysql` database
-* Deploying to Cloud Foundry
+* Connection to a separate instance of `mysql` database
+* Deployment to Cloud Foundry
 
 
-## Running TicketMonster
+## Running TicketMonster locally
 
-From the command line, you can run the application simply in a WildFly 10.x application server as simple as this:
+From the command line, you can run the application in a WildFly 10.x application server as simple as this:
 
 ```
 mvn clean package wildfly:run
 ```
 
-This builds the application with an embedded database and bootstraps an embedded application server and deploys the service available at [http://localhost:8080/ticket-monster](http://localhost:8080/ticket-monster). Give it a try to make sure everything comes up correctly.
+This builds the application with an embedded database, bootstraps an embedded application server and deploys the service available at [http://localhost:8080/ticket-monster](http://localhost:8080/ticket-monster).
 
 
-## For developers: Building TicketMonster
+## Building TicketMonster
 
-TicketMonster can be built from Maven, by running the following Maven command:
+TicketMonster can be built from Maven by running the following Maven command:
 
 ```
 mvn clean package
 ```
 	
-### Building TicketMonster with MySQL 
+## Building TicketMonster with MySQL 
 
 If you want to build the WAR with support for MySQL database, build with the following profiles:
 
@@ -40,38 +40,37 @@ mvn clean package -Pmysql,default
 Note, we explicitly enable the `mysql` profile and also the `default` profile. We keep the default profile around to skip integration tests. Leave it off to run them.   
 
 	
-### Building TicketMonster with MySQL on Cloud Foundry
+## Let TicketMonster with MySQL live on Cloud Foundry
 
-First you should deploy a `mysql` instance. 
-
-Deploy the `mysql` Cloud Foundry service:
-
+First, deploy the `mysql` Cloud Foundry service instance using the 100mb plan:
 ```
 cf create-service p-mysql 100mb ticketMonster-mysql
 ```
 
-Build the latest version of the monolith as Docker container:
-
+Build the latest version of the monolith as Docker image:
 ```
-mvn clean install -P mysql fabric8:build -D docker.image.name=jbraeuer/ticket-monster-mysql:latest
+mvn clean install -P mysql fabric8:build -D docker.image.name=jbraeuer/ticket-monster-mysql:latest1
 ```
 
-Move to Docker file and push container image to Docker Hub:
+Move to Dockerfile and push Docker image to Docker Hub:
 ```
 cd .\target\docker\jbraeuer\ticket-monster-mysql\latest\build
 docker push jbraeuer/ticket-monster-mysql:latest
 ```
 
-Push the application to Cloud Foundry by using the container image on Docker Hub:
-
+Push the application to Cloud Foundry by refering to the container image on Docker Hub:
 ```
-cf push ticket-Monster --docker-image jbraeuer/ticket-monster-mysql:latest
+cf push ticket-monster --docker-image jbraeuer/ticket-monster-mysql:latest
 ```
 
-Get binding information and set database connection in standalone.xml
-
+Bind the `mysql` service instance to the application
 ```
-cf env ticketMonster1
+cf bind-service ticket-monster ticketMonster-mysql
+```
+
+Get binding information and set database connection in `src\main\wf-standalone\standalone.xml`
+```
+cf env ticket-Monster
 ```
 
 ```
@@ -80,7 +79,7 @@ cf env ticketMonster1
     <driver>mysql</driver>
        <security>
             <user-name>md8ZiMyOvdae9G2s</user-name>
-            <password>noCfHlaDbyaxcRXG</password>
+            <password>noCfHlaDbyaxc***</password>
         </security>
 </datasource>
 ```
@@ -88,7 +87,10 @@ cf env ticketMonster1
 Rebuild TicketMonster, push to Docker Hub, and push to Cloud Foundry:
 ```
 mvn clean install -P mysql fabric8:build -D docker.image.name=jbraeuer/ticket-monster-mysql:latest
+
 cd .\target\docker\jbraeuer\ticket-monster-mysql\latest\build
+
 docker push jbraeuer/ticket-monster-mysql:latest
-cf push ticket-Monster --docker-image jbraeuer/ticket-monster-mysql:latest
+
+cf push ticket-monster --docker-image jbraeuer/ticket-monster-mysql:latest
 ```

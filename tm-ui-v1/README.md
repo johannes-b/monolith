@@ -1,7 +1,8 @@
 ## Ticket Monster UI
 
-This proxy helps us keep friendly URLs even when there are composite UIs or composite microservice REST apis
-It also helps us avoid tripping the browser Same Origin policy. We use a simple HTTP server (apache) to serve the static content and then use the reverse proxy plugins to proxy REST calls to the appropriate microservice:
+This proxy helps us keep friendly URLs even when there are composite UIs or composite microservice REST APIs
+
+It also helps us avoid tripping the browser Same Origin policy. We use a simple HTTP server (Apache) to serve the static content and then use the reverse proxy plugins to proxy REST calls to the appropriate microservice:
 
 ```
 # proxy for the admin microserivce
@@ -9,19 +10,20 @@ ProxyPass "/rest" "http://ticket-monster:8080/rest"
 ProxyPassReverse "/rest" "http://ticket-monster:8080/rest"
 ```
 
-## Running in docker
+## Let Ticket Monster UI live on Cloud Foundry 
 
-The docker image for this project is `ceposta/tm-ui:monolith`
+First, build the docker container from the location containing the Dockerfile:
 
+```
+docker build -t jbraeuer/tm-ui:monolith .
+```
 
-## Developers:
+Push Docker image to Docker Hub:
+```
+docker push jbraeuer/tm-ui:monolith
+```
 
-Build the docker container:
-
-> docker build -t ceposta/tm-ui:monolith .
-
-Run in kubernetes
-
-> kubectl run tm-ui --image=ceposta/tm-ui:monolith --port=80
-
-Or using the resource files in the [deployment](../deployment/kubernetes/core/frontend/) folder.
+Push the application to Cloud Foundry by refering to the container image on Docker Hub:
+```
+cf push tm-ui-v1 -o jbraeuer/tm-ui:monolith
+```
