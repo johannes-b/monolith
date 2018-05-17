@@ -31,21 +31,3 @@ The `backend-*` folders contain the monolith with the UI removed and successive 
 ### orders-service
 
 This 
-
-
-
-
-## Using Minikube (Kubernetes)
-
-Bootstrapping minikube:
-
-```
-$ minikube start --vm-driver=xhyve --memory=4096 --disk-size=30g --kubernetes-version=v1.7.5 
-```
-
-## Using Minishift (OpenShift Origin)
-
-Bootstrapping in minishift:
-
-```
-```

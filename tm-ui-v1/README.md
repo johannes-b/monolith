@@ -12,7 +12,7 @@ ProxyPassReverse "/rest" "http://ticket-monster:8080/rest"
 
 ## Let Ticket Monster UI live on Cloud Foundry 
 
-First, build the docker container from the location containing the Dockerfile:
+First, build the Docker image from the location containing the Dockerfile:
 
 ```
 docker build -t jbraeuer/tm-ui:monolith .
@@ -23,7 +23,7 @@ Push Docker image to Docker Hub:
 docker push jbraeuer/tm-ui:monolith
 ```
 
-Push the application to Cloud Foundry by refering to the container image on Docker Hub:
+Push the application to Cloud Foundry by refering to the image on Docker Hub:
 ```
 cf push tm-ui-v1 -o jbraeuer/tm-ui:monolith
 ```

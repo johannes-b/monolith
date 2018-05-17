@@ -68,9 +68,9 @@ Bind the `mysql` service instance to the application
 cf bind-service ticket-monster ticketMonster-mysql
 ```
 
-Get binding information and set database connection in `src\main\wf-standalone\standalone.xml`
+Get binding information and set database connection-url, user-name, and password in `src\main\wf-standalone\standalone.xml`
 ```
-cf env ticket-Monster
+cf env ticket-monster
 ```
 
 ```
