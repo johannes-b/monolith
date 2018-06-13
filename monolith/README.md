@@ -1,9 +1,6 @@
 # Monolith TicketMonster
 
-This is the monolith version of the TicketMonster app from the [tutorial on developers.redhat.com](https://developers.redhat.com/ticket-monster/).
-
-
-This project illustrates the following concepts:
+This is the monolith version of the TicketMonster app from the [tutorial on developers.redhat.com](https://developers.redhat.com/ticket-monster/). It illustrates the following concepts:
 
 * App running in WildFly 10.x (EE 7)
 * Connection to a separate instance of `mysql` database
@@ -15,16 +12,16 @@ This project illustrates the following concepts:
 * Make sure you have [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) installed 
 * You need [Maven](https://maven.apache.org/) to build the monolith
 * You need [Docker](https://www.docker.com/community-edition) to create a Docker image 
-* Sign In to your Docker Hub Account
+* [Sign In](https://hub.docker.com/) to your Docker Hub Account
 
 ## Instructions
 
-**0. See [Instructions]() and change directory**
+**0. See [Instructions](https://github.com/johannes-b/monolith#instructions) and change directory**
 ```sh
 $ cd monolith
 ```
 
-**1. Deploy the `mysql` Cloud Foundry service instance using the 100mb plan**
+**1. Deploy a `mysql` Cloud Foundry service instance using the 100mb plan**
 ```sh
 $ cf create-service p-mysql 100mb ticketMonster-mysql
 ```
@@ -32,18 +29,18 @@ $ cf create-service p-mysql 100mb ticketMonster-mysql
 
 **2. Build the latest version of the monolith as Docker image**
 ```sh
-$ mvn clean install -P mysql fabric8:build -D docker.image.name=<dockerhub account>/ticket-monster-mysql:latest
+$ mvn clean install -P mysql fabric8:build -D docker.image.name=<your dockerhub account>/ticket-monster-mysql:latest
 ```
 
 **3. Move to Dockerfile and push Docker image to Docker Hub**
 ```sh
-$ cd .\target\docker\<dockerhub account>\ticket-monster-mysql\latest\build
-$ docker push <dockerhub account>/ticket-monster-mysql:latest
+$ cd .\target\docker\<your dockerhub account>\ticket-monster-mysql\latest\build
+$ docker push <your dockerhub account>/ticket-monster-mysql:latest
 ```
 
 **4. Push the application to Cloud Foundry by refering to the container image on Docker Hub**
 ```sh
-$ cf push ticket-monster --docker-image <dockerhub account>/ticket-monster-mysql:latest
+$ cf push ticket-monster --docker-image <your dockerhub account>/ticket-monster-mysql:latest
 ```
 
 **5. Bind the `mysql` service instance to the application**

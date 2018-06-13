@@ -1,29 +1,40 @@
 ## Ticket Monster UI
 
-This proxy helps us keep friendly URLs even when there are composite UIs or composite microservice REST APIs
+This proxy helps us keep friendly URLs even when there are composite UIs or composite microservice REST APIs.
+Ticket Monster UI uses a simple HTTP server (Apache) to serve the static content and then use the reverse proxy plugins to proxy REST calls to the appropriate microservice:
 
-It also helps us avoid tripping the browser Same Origin policy. We use a simple HTTP server (Apache) to serve the static content and then use the reverse proxy plugins to proxy REST calls to the appropriate microservice:
-
+httpd.conf:
 ```
 # proxy for the admin microserivce
 ProxyPass "/rest" "http://ticket-monster:8080/rest"
 ProxyPassReverse "/rest" "http://ticket-monster:8080/rest"
 ```
 
-## Let Ticket Monster UI live on Cloud Foundry 
+## Prerequisites
 
-First, build the Docker image from the location containing the Dockerfile:
+* Requires access to a PCF Cluster
+* Make sure you have [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) installed 
+* You need [Docker](https://www.docker.com/community-edition) to create a Docker image 
+* [Sign In](https://hub.docker.com/) to your Docker Hub Account
 
-```
-docker build -t jbraeuer/tm-ui:monolith .
+## Instructions
+
+**0. See [Instructions](https://github.com/johannes-b/monolith#instructions) and change directory**
+```sh
+$ cd tm-ui-v1
 ```
 
-Push Docker image to Docker Hub:
-```
-docker push jbraeuer/tm-ui:monolith
+**1. Build Docker image**
+```sh
+$ docker build -t <your dockerhub account>/tm-ui:monolith .
 ```
 
-Push the application to Cloud Foundry by refering to the image on Docker Hub:
+**2. Push Docker image to Docker Hub**
+```sh
+$ docker push <your dockerhub account>/tm-ui:monolith
 ```
-cf push tm-ui-v1 -o jbraeuer/tm-ui:monolith
+
+**3.  Push the application to Cloud Foundry by refering to the image on Docker Hub**
+```sh
+$ cf push tm-ui-v1 -o <your dockerhub account>/tm-ui:monolith
 ```
