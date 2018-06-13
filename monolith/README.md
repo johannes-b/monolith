@@ -12,7 +12,7 @@ This is the monolith version of the TicketMonster app from the [tutorial on deve
 * Make sure you have [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) installed 
 * You need [Maven](https://maven.apache.org/) to build the monolith
 * You need [Docker](https://www.docker.com/community-edition) to create a Docker image 
-* [Sign In](https://hub.docker.com/) to your Docker Hub Account
+* [Sign In](https://hub.docker.com/) to your DockerHub Account
 
 ## Instructions
 
@@ -32,13 +32,13 @@ $ cf create-service p-mysql 100mb ticketMonster-mysql
 $ mvn clean install -P mysql fabric8:build -D docker.image.name=<your dockerhub account>/ticket-monster-mysql:latest
 ```
 
-**3. Move to Dockerfile and push Docker image to Docker Hub**
+**3. Move to Dockerfile and push Docker image to DockerHub**
 ```sh
 $ cd .\target\docker\<your dockerhub account>\ticket-monster-mysql\latest\build
 $ docker push <your dockerhub account>/ticket-monster-mysql:latest
 ```
 
-**4. Push the application to Cloud Foundry by refering to the container image on Docker Hub**
+**4. Push the application to Cloud Foundry by refering to the container image on DockerHub**
 ```sh
 $ cf push ticket-monster --docker-image <your dockerhub account>/ticket-monster-mysql:latest
 ```
@@ -58,7 +58,7 @@ $ cf set-env ticket-monster PASSWORD ***
 
 **7. Restage application to ensure your environment variable changes take effect**
 ```sh
-cf restage ticket-monster
+$ cf restage ticket-monster
 ```
 
 ## Appendix

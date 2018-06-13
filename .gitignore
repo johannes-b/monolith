@@ -8,7 +8,7 @@ target
 pom.xml
 deployments
 orders-service/ObjectStore/
-deployment/kubernetes/istio/istio-0.*
+monolith/deployApp.bat
 backend-v1
 backend-v2
 deployment

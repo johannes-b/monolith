@@ -1,10 +1,10 @@
-# Ticket Monster Monolith to Microservices
+# Fearless Monolith to Microservices Migration – A guided journey
 
-This project is a monorepo of projects that illustrate migrating a monolith application to microservices on Cloud Foundry. For this journey, a blog post series explains the required concepts and best practices. Open the initial blog: [Fearless Monolith to Microservices Migration – A guided journey](https://blog-authoring.lab.dynatrace.org/news/blog/fearless-monolith-to-microservices-migration-a-guided-journey/) that guides you through the different stages and projects in a structured manner. (A summary of the steps is shown in the Instructions section below.) 
+This project is a monorepo of projects that illustrate migrating a monolith application (TicketMonster) to microservices on Cloud Foundry. For this journey, a blog post series explains the required concepts and best practices. Open the initial blog: [Fearless Monolith to Microservices Migration – A guided journey](https://blog-authoring.lab.dynatrace.org/news/blog/fearless-monolith-to-microservices-migration-a-guided-journey/) that guides you through the different stages in a structured manner. (A summary of the steps is shown in the Instructions section below.) 
 
 ## Overview
 
-There are a series of projects used to illustrate a migration to microservices from a Java EE monolith. 
+There are a series of projects* used to illustrate a migration to microservices from a Java EE monolith. (*more are comming as the blog series grows)
 
 ### monolith
 The getting started experience begins with the [monolith](./monolith/README.md) project. In this project we deploy our monolith application and understand the domain, architecture, and structure of the application that will be the foundation for successive iterations.
@@ -14,7 +14,7 @@ The getting started experience begins with the [monolith](./monolith/README.md) 
 <!-- 
 The `tm-ui-*` folders contain different versions of the front-facing UI that we use as we migrate from a monolith to split out the UI to the set of microservices.
 -->
-The `tm-ui-v1` folder contains a version of the front-facing UI that we use as we migrate from a monolith to split out the UI to the set of microservices.
+The [tm-ui-v1](./tm-ui-v1/README.md) folder contains a version of the front-facing UI that we use as we migrate from a monolith to split out the UI to the set of microservices.
 
 <!-- 
 ### backend
@@ -33,13 +33,13 @@ $ git clone https://github.com/johannes-b/monolith.git
 $ cd monolith
 ```
 
-**2. Lift-and-shift `ticket-monster` to Cloud Foundry**
+**2. Lift-and-shift TicketMonster to Cloud Foundry**
 
-* In directory `monolith`, follow the [Instructions](./monolith/README.md) to run the ticket-monster application on Cloud Foundry.
+* In directory `monolith`, follow the [Instructions](./monolith/README.md) to run TicketMonster on Cloud Foundry.
 
-**3. Set `tm-ui-v1` UI in front of the monolith**
+**3. Set a new UI in front of TicketMonster**
 
-* In directory `tm-ui-v1`, follow the [Instructions](./tm-ui-v1/README.md) to set a new UI in front of the ticket-monster application. 
+* In directory `tm-ui-v1`, follow the [Instructions](./tm-ui-v1/README.md) to set an independent UI in front of TicketMonster. 
 
 
  
