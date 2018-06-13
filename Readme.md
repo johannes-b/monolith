@@ -1,17 +1,10 @@
 # Ticket Monster Monolith to Microservices
 
-This is project is a monorepo of projects that illustrate migrating a monolith application to microservices.
+This is project is a monorepo of projects that illustrate migrating a monolith application to microservices on Cloud Foundry.
 
-The motivation for the patterns used in this repo are articulated in detail in [this blog post](http://blog.christianposta.com/microservices/low-risk-monolith-to-microservice-evolution/)
+The blog series that explains this migration journey can be found here: [this blog series](https://blog-authoring.lab.dynatrace.org/news/blog/fearless-monolith-to-microservices-migration-a-guided-journey/)
 
-## Quick start
-
-Whether using Kubernetes or OpenShift Origin, make sure you have [Istio installed](https://istio.io/docs/setup/kubernetes/quick-start.html) .
-
-Check the [deployment](./deployment) folder. In here we have scripts for deploying to [Kubernetes](http://kubernetes.io) and [OpenShift Origin](https://www.openshift.org). In the `$platform/demo/` folder is step-by-step instructions for running the demo. 
-
- 
-## Getting started with the projects
+## Overview
 
 There are a series of projects used to illustrate a migration to microservices from a Java EE monolith. 
 
@@ -26,8 +19,24 @@ The `tm-ui-*` folders contain different versions of the front-facing UI that we 
 ### backend
 
 The `backend-*` folders contain the monolith with the UI removed and successive iterations of evolution. With `backend-v1`, we have taken the monolith as it is and removed the UI. It contains a REST API that can be called from the UI. In `backend-v2` we've stated adding feature flags for controlling the introduction of a new microservice. See each respective sub project for more information.
- 
- 
+  
 ### orders-service
 
-This 
+This TBD 
+
+## Prerequisites
+
+* Make sure you have [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) installed 
+
+## Instructions
+
+**1. Clone the repository**
+```sh
+$ git clone https://github.com/johannes-b/monolith.git
+$ cd monolith
+```
+
+
+
+ 
+
