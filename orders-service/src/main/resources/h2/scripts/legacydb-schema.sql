@@ -11,8 +11,6 @@ DROP TABLE IF EXISTS Appearance;
 DROP TABLE IF EXISTS MediaItem;
 DROP TABLE IF EXISTS EventCategory;
 
-
-
 CREATE TABLE `MediaItem` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `mediaType` varchar(255) DEFAULT NULL,
@@ -20,6 +18,7 @@ CREATE TABLE `MediaItem` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_4hr5wsvx6wqc3x7f62hi4icwk` (`url`)
 ) ;
+
 
 CREATE TABLE `EventCategory` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,

@@ -203,6 +203,7 @@ public class BookingService extends BaseEntityService<Booking> {
                 getEntityManager().persist(booking);
                 newBookingEvent.fire(booking);
                 return Response.ok().entity(booking).type(MediaType.APPLICATION_JSON_TYPE).build();
+
             } else {
                 Map<String, Object> responseEntity = new HashMap<String, Object>();
                 responseEntity.put("errors", Collections.singletonList("Cannot allocate the requested number of seats!"));

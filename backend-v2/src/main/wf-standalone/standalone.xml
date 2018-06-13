@@ -148,8 +148,8 @@
           <connection-url>jdbc:mysql://10.0.16.54:3306/cf_b67dba92_e214_4bdb_96c4_aebd5f986425</connection-url>
           <driver>mysql</driver>
           <security>
-            <user-name>kA5q2CpzA23hN40X</user-name>
-            <password>ZYITkJT44ikVo9OA</password>
+            <user-name>ykiFx0qVvr1PR2Dv</user-name>
+            <password>rdIsxHQVcsrk2qHa</password>
           </security>
           <validation>
             <check-valid-connection-sql>select 1</check-valid-connection-sql>

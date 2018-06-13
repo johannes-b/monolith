@@ -272,7 +272,8 @@ public class BookingService extends BaseEntityService<Booking> {
                     .target(this.ordersServiceUri)
                     .request()
                     .post(Entity.entity(ordersRequest, MediaType.APPLICATION_JSON_TYPE));
-
+            return response;
+            /*
             Booking booking = new Booking();
             booking.setContactEmail(bookingRequest.getEmail());
             Performance performance = getEntityManager().find(Performance.class, bookingRequest.getPerformance());
@@ -281,7 +282,9 @@ public class BookingService extends BaseEntityService<Booking> {
 
             JSONObject jsonObj = new JSONObject(response.readEntity(String.class));
             booking.setId(jsonObj.getLong("id"));
+           
             return Response.ok().entity(booking).type(MediaType.APPLICATION_JSON_TYPE).build();
+            */
 
         } catch (Exception e) {
             System.out.println("Caught an exception here: "+ e.getMessage());

@@ -68,29 +68,15 @@ Bind the `mysql` service instance to the application
 cf bind-service ticket-monster ticketMonster-mysql
 ```
 
-Get binding information and set database connection-url, user-name, and password in `src\main\wf-standalone\standalone.xml`
+Get binding information and set environment variables: database connection-url, user-name, and password.
 ```
 cf env ticket-monster
+cf set-env ticket-monster CONNECTION-URL jdbc:mysql://***
+cf set-env ticket-monster USER-NAME ***
+cf set-env ticket-monster PASSWORD ***
 ```
 
+Restage application to ensure your environment variable changes take effect
 ```
-<datasource jndi-name="java:jboss/datasources/MySQLDS" pool-name="MySQLDS">
-    <connection-url>jdbc:mysql://10.0.16.54:3306/cf_b67dba92_e214_4bdb_96c4_aebd5f986425</connection-url>
-    <driver>mysql</driver>
-       <security>
-            <user-name>md8ZiMyOvdae9G2s</user-name>
-            <password>noCfHlaDbyaxc***</password>
-        </security>
-</datasource>
-```
-
-Rebuild TicketMonster, push to Docker Hub, and push to Cloud Foundry:
-```
-mvn clean install -P mysql fabric8:build -D docker.image.name=jbraeuer/ticket-monster-mysql:latest
-
-cd .\target\docker\jbraeuer\ticket-monster-mysql\latest\build
-
-docker push jbraeuer/ticket-monster-mysql:latest
-
-cf push ticket-monster --docker-image jbraeuer/ticket-monster-mysql:latest
+cf restage ticket-monster
 ```

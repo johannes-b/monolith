@@ -534,9 +534,11 @@
                                         <build>
                                             <from>jboss/wildfly:10.1.0.Final</from>
                                             <ports>
+                                                <!--
                                                 <port>443</port>
-                                                <port>8080</port>
                                                 <port>8443</port>
+                                                -->
+                                                <port>8080</port>
                                             </ports>
                                             <assembly>
                                                 <inline>
