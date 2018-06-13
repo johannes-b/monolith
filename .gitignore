@@ -8,3 +8,8 @@ target
 deployments
 orders-service/ObjectStore/
 deployment/kubernetes/istio/istio-0.*
+backend-v1
+backend-v2
+deployment
+orders-service
+tm-ui-v2
