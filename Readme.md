@@ -1,8 +1,6 @@
 # Ticket Monster Monolith to Microservices
 
-This is project is a monorepo of projects that illustrate migrating a monolith application to microservices on Cloud Foundry.
-
-The blog series that explains this migration journey can be found here: [this blog series](https://blog-authoring.lab.dynatrace.org/news/blog/fearless-monolith-to-microservices-migration-a-guided-journey/)
+This project is a monorepo of projects that illustrate migrating a monolith application to microservices on Cloud Foundry. For this journey, a blog post series explains the required concepts and best practices. Open the initial blog: [Fearless Monolith to Microservices Migration – A guided journey](https://blog-authoring.lab.dynatrace.org/news/blog/fearless-monolith-to-microservices-migration-a-guided-journey/) that guides you through the different stages and projects in a structured manner. (A summary of the steps is shown in the Instructions section below.) 
 
 ## Overview
 
@@ -27,10 +25,6 @@ The `backend-*` folders contain the monolith with the UI removed and successive 
 
 -->
 
-## Prerequisites
-
-* Make sure you have [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) installed 
-
 ## Instructions
 
 **1. Clone the repository**
@@ -39,11 +33,13 @@ $ git clone https://github.com/johannes-b/monolith.git
 $ cd monolith
 ```
 
-**2. Setup 'ticket-monster' on Cloud Foundry**
-To setup the TicketMonster application, see the [Instruction](./monolith/README.md) in folder monolith.
+**2. Lift-and-shift `ticket-monster` to Cloud Foundry**
 
-**3. Set 'tm-ui-v1' UI in front of 'ticket-monster'**
-Afterwards, set the tm-ui-v1 in front of the monolith. Therefore, the [Instruction](./tm-ui-v1/README.md) are in tm-ui-v1.
+* In directory `monolith`, follow the [Instructions](./monolith/README.md) to run the ticket-monster application on Cloud Foundry.
+
+**3. Set `tm-ui-v1` UI in front of the monolith**
+
+* In directory `tm-ui-v1`, follow the [Instructions](./tm-ui-v1/README.md) to set a new UI in front of the ticket-monster application. 
 
 
  

@@ -19,7 +19,7 @@ ProxyPassReverse "/rest" "http://ticket-monster:8080/rest"
 
 ## Instructions
 
-**0. See [Instructions](https://github.com/johannes-b/monolith#instructions) and change directory**
+**0. [Clone the repository](https://github.com/johannes-b/monolith#instructions) and change directory**
 ```sh
 $ cd tm-ui-v1
 ```

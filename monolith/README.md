@@ -16,7 +16,7 @@ This is the monolith version of the TicketMonster app from the [tutorial on deve
 
 ## Instructions
 
-**0. See [Instructions](https://github.com/johannes-b/monolith#instructions) and change directory**
+**0. [Clone the repository](https://github.com/johannes-b/monolith#instructions) and change directory**
 ```sh
 $ cd monolith
 ```
