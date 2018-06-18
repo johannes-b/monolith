@@ -9,6 +9,7 @@ pom.xml
 deployments
 orders-service/ObjectStore/
 monolith/deployApp.bat
+tm-ui-v1/deployApp.bat
 backend-v1
 backend-v2
 deployment
