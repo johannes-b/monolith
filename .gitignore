@@ -6,7 +6,12 @@ target
 .project
 .settings
 pom.xml
+
 orders-service/ObjectStore/
 monolith/deployApp.bat
 tm-ui-v1/deployApp.bat
 deployment
+
+backend-v1/.factorypath
+backend-v2/.factorypath
+monolith/.factorypath

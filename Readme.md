@@ -1,10 +1,12 @@
-# Fearless Monolith to Microservices Migration – A guided journey
+﻿# Fearless Monolith to Microservices Migration – A guided journey
 
-This project is a monorepo of projects that illustrate migrating a monolith application (TicketMonster) to microservices on Cloud Foundry. For this journey, a blog post series explains the required concepts and best practices. Open the initial blog: [Fearless Monolith to Microservices Migration – A guided journey](https://blog-authoring.lab.dynatrace.org/news/blog/fearless-monolith-to-microservices-migration-a-guided-journey/) that guides you through the different stages in a structured manner. (A summary of the steps is shown in the Instructions section below.) 
+This repository is a clone from [ticket-monster-msa/monolith](https://github.com/ticket-monster-msa/monolith) maintained by Christian Posta, who gave permission to reuse it for this cloud migration showcase.
+
+The repository is a monorepo of projects that illustrate migrating a monolith application (TicketMonster) to microservices on Cloud Foundry. For this journey, a blog post series explains the required concepts and best practices. Open the initial blog: [Fearless Monolith to Microservices Migration – A guided journey](https://blog-authoring.lab.dynatrace.org/news/blog/fearless-monolith-to-microservices-migration-a-guided-journey/) that guides you through the different stages in a structured manner. (A summary of the steps is shown in the Instructions section below.) 
 
 ## Overview
 
-There are a series of projects* used to illustrate a migration to microservices from a Java EE monolith. (*more are comming as the blog series grows)
+There are a series of projects* used to illustrate a migration to microservices from a Java EE monolith. (*more are coming as the blog series grows)
 
 ### monolith
 The getting started experience begins with the [monolith](./monolith/README.md) project. In this project we deploy our monolith application and understand the domain, architecture, and structure of the application that will be the foundation for successive iterations.
